@@ -42,6 +42,7 @@ g++ -std=c++17 -Wall -Wextra src/main.cpp -o bin/p3
 | T08 | Test cases (TC01–TC07) & expected outputs | `tests/test_cases.md`, `tests/expected/` | Khanh | Nhi | not needed | - |
 | T09 | System architecture documentation | `docs/architecture.md` | Nhi | Hoang | not needed | - |
 | T10 | Presentation slides | `docs/slides.pdf` | Hoang | Khanh | not needed | - |
+| T11 | CSV helper & binary search | `splitCsv()`, `binarySearchProduct()`, `findProduct()` | Nhi | Khanh | yes | - |
 
 ## 7. AI Declaration & References
 * **AI Tool Used:** Gemini.
