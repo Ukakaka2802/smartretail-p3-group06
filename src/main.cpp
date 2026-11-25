@@ -82,3 +82,84 @@ int findProduct(const vector<Product>& products, const string& productId) {
     return result;
 }
 // =================== end T11 ===================
+// ===================== T04: loadEvents, loadIdentityLinks, sessionExists, findLink =====================
+// Owner: Nhan Ngoc Phuong Nhi | Flowcharts: docs/flowcharts/T04-*.drawio.png
+
+// struct Event and struct Link are defined in T11 (shared structs).
+
+// Return the index of the link for this session, or -1 if the session is not linked (linear search)
+int findLink(const vector<Link>& links, const string& sessionId) {
+    for (int i = 0; i < (int)links.size(); i++) {
+        if (links[i].sessionId == sessionId) {
+            return i;
+        }
+    }
+    return -1;
+}
+
+// Return true if some event has sessionId == sid (linear search)
+bool sessionExists(const vector<Event>& events, const string& sid) {
+    for (int i = 0; i < (int)events.size(); i++) {
+        if (events[i].sessionId == sid) {
+            return true;
+        }
+    }
+    return false;
+}
+
+// Read customer_events.csv into events. Skip bad lines with a warning to cerr.
+bool loadEvents(const string& path, const vector<Product>& products, vector<Event>& events) {
+    ifstream file(path);
+    if (!file.is_open()) {
+        cerr << "Cannot open " << path << endl;
+        return false;
+    }
+    string line;
+    getline(file, line);            // skip header
+    int lineNo = 1;
+    vector<string> cols;
+    while (getline(file, line)) {
+        lineNo = lineNo + 1;
+        splitCsv(line, cols);
+        if (cols.size() != 4) {
+            cerr << "Line " << lineNo << ": wrong column count" << endl;
+        } else if (findProduct(products, cols[3]) == -1) {
+            cerr << "Line " << lineNo << ": unknown product" << endl;
+        } else {
+            events.push_back(Event{cols[0], cols[1], cols[2], cols[3]});
+        }
+    }
+    file.close();
+    return true;
+}
+
+// Read identity_links.csv into links. Keep the first link if a session is linked twice.
+bool loadIdentityLinks(const string& path, const vector<Event>& events, vector<Link>& links) {
+    ifstream file(path);
+    if (!file.is_open()) {
+        cerr << "Cannot open " << path << endl;
+        return false;
+    }
+    string line;
+    getline(file, line);            // skip header
+    int lineNo = 1;
+    vector<string> cols;
+    while (getline(file, line)) {
+        lineNo = lineNo + 1;
+        splitCsv(line, cols);
+        if (cols.size() != 4) {
+            cerr << "Line " << lineNo << ": wrong column count" << endl;
+        } else if (cols[1] == "") {
+            cerr << "Line " << lineNo << ": empty customer_id" << endl;
+        } else if (!sessionExists(events, cols[0])) {
+            cerr << "Line " << lineNo << ": session not in events" << endl;
+        } else if (findLink(links, cols[0]) != -1) {
+            cerr << "Line " << lineNo << ": session already linked" << endl;
+        } else {
+            links.push_back(Link{cols[0], cols[1], cols[2], cols[3]});
+        }
+    }
+    file.close();
+    return true;
+}
+// =================== end T04 ===================

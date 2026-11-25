@@ -35,7 +35,7 @@ g++ -std=c++17 -Wall -Wextra src/main.cpp -o bin/p3
 | T01 | Repo skeleton & PR template | `.gitignore`, `.github/`, folders | Khanh | Nhi | not needed | #1, #2 |
 | T02 | Core branch selection & scoring | `selectBranch()`, `scoreProduct()` | Khanh | Hoang | yes | - |
 | T03 | Read products & transactions CSV | `loadProducts()`, `loadTransactions()` | Khanh | Nhi | yes | - |
-| T04 | Read events & identity links CSV | `loadEvents()`, `loadIdentityLinks()` | Nhi | Khanh | yes | - |
+| T04 | Read events & identity links CSV | `loadEvents()`, `loadIdentityLinks()`, `findLink()`, `sessionExists()` | Nhi | Khanh | yes | - |
 | T05 | Preference inference (category, brand, budget) | `inferPreferences()` | Nhi | Hoang | yes | - |
 | T06 | Sort Top-K & print report | `sortRecommendations()`, `printReport()` | Hoang | Khanh | yes | - |
 | T07 | CLI argument parser & main pipeline | `parseArgs()`, `main()` | Hoang | Nhi | yes | - |

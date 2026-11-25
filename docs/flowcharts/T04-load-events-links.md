@@ -1,4 +1,4 @@
-# T04 – loadEvents(), loadIdentityLinks(), sessionExists()
+# T04 – loadEvents(), loadIdentityLinks(), sessionExists(), findLink()
 
 ## loadEvents(path, products, events)
 Input: path to customer_events.csv, products (already loaded, sorted by product_id).
@@ -54,3 +54,13 @@ Output: true if some event has sessionId == sid.
     FOR i = 0 TO events.size() - 1
         IF events[i].sessionId == sid THEN RETURN true
     RETURN false
+
+## findLink(links, sessionId)
+Output: index of the link for this session, or -1 if the session is not linked.
+Used by loadIdentityLinks (keep the first link) and later by T02/T05.
+
+![Flowchart findLink](T04-find-link.drawio.png)
+
+    FOR i = 0 TO links.size() - 1
+        IF links[i].sessionId == sessionId THEN RETURN i
+    RETURN -1
